@@ -1,0 +1,46 @@
+---
+import '../styles/global.css';
+
+const { title = 'Palm Tree Pros' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}</title>
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <style is:global>
+            /* Tailwind injected via Astro */
+        </style>
+
+        <!-- AOS -->
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+        />
+        <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+        <script is:inline defer>
+            /* wait until AOS script has executed */
+            document.addEventListener('DOMContentLoaded', () => {
+                if (window.AOS) {
+                    AOS.init({ once: true, duration: 600 });
+                }
+            });
+        </script>
+    </head>
+    <body class="font-body text-gray-900 scroll-smooth">
+        <slot />
+        <!-- Lightbox -->
+        <script src="/scripts/lightbox.js" defer></script>
+    </body>
+</html>

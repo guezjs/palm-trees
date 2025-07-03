@@ -1,16 +1,75 @@
 ---
+import Layout from '../layouts/BaseLayout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Gallery from '../components/Gallery.astro';
+import Hero from '../components/Hero.astro';
+import Social from '../components/Social.astro';
 
+// ⚠️ Temporary static arrays; we’ll feed these from Tina later.
+const services = [
+    { title: 'Palm Tree Trimming', img: '/images/svc-palm.jpg' },
+    { title: 'Tree Trimming', img: '/images/svc-tree.jpg' },
+    { title: 'Lawn Mowing', img: '/images/svc-lawn.jpg' },
+    { title: 'Bush Trimming', img: '/images/svc-bush.jpg' },
+];
+
+const gallery = [
+    '/images/work1.jpg',
+    '/images/work2.jpg',
+    '/images/work3.jpg',
+    '/images/work4.jpg',
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+    <!-- HEADER -->
+    <!-- <header class="flex items-center justify-between px-6 py-4">
+        <h1 class="font-heading text-xl md:text-2xl">
+            Palm&nbsp;Tree&nbsp;Pros
+        </h1>
+        <a
+            href="tel:+1234567890"
+            class="px-4 py-2 bg-primary text-white rounded-lg shadow-lg hover:bg-white hover:text-black"
+            >Call&nbsp;Now (424) 339-8282</a
+        >
+    </header> -->
+
+    <!-- HERO -->
+	<Hero />
+
+    <!-- SERVICES -->
+    <section class="px-6 py-16" id="services" data-aos="fade-up">
+        <h3 class="font-heading text-2xl mb-8">Services</h3>
+        <div class="grid gap-6 md:grid-cols-2">
+            {services.map((s) => <ServiceCard title={s.title} img={s.img} />)}
+        </div>
+    </section>
+
+    <!-- GALLERY / PREVIOUS WORK -->
+    <Gallery images={gallery} />
+
+    <!-- SOCIAL + CTA -->
+	<Social />
+
+    <!-- LIGHTBOX DIALOG -->
+    <dialog id="lightbox" class="p-0 bg-transparent">
+        <div class="relative">
+            <button
+                data-prev
+                class="absolute left-4 top-1/2 -translate-y-1/2 text-3xl text-white"
+                >&larr;</button
+            >
+            <img class="max-w-[90vw] max-h-[90vh] rounded-lg shadow-lg" />
+            <button
+                data-next
+                class="absolute right-4 top-1/2 -translate-y-1/2 text-3xl text-white"
+                >&rarr;</button
+            >
+            <button
+                onclick="this.closest('dialog').close()"
+                class="absolute top-2 right-4 text-2xl text-white"
+                >&times;</button
+            >
+        </div>
+    </dialog>
+</Layout>
