@@ -41,6 +41,6 @@ const { title = 'Palm Tree Pros' } = Astro.props;
     <body class="font-body text-gray-900 scroll-smooth">
         <slot />
         <!-- Lightbox -->
-        <script src="/scripts/lightbox.js" defer></script>
+        <script is:inline src="/scripts/lightbox.js" defer></script>
     </body>
 </html>

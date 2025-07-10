@@ -5,20 +5,14 @@ import Gallery from '../components/Gallery.astro';
 import Hero from '../components/Hero.astro';
 import Social from '../components/Social.astro';
 
-// ⚠️ Temporary static arrays; we’ll feed these from Tina later.
-const services = [
-    { title: 'Palm Tree Trimming', img: '/images/svc-palm.jpg' },
-    { title: 'Tree Trimming', img: '/images/svc-tree.jpg' },
-    { title: 'Lawn Mowing', img: '/images/svc-lawn.jpg' },
-    { title: 'Bush Trimming', img: '/images/svc-bush.jpg' },
-];
+// auto-import JSON files Tina creates
+const serviceModules = import.meta.glob('../content/services/*.json', { eager: true });
+const galleryModules = import.meta.glob('../content/gallery/*.json', { eager: true });
 
-const gallery = [
-    '/images/work1.jpg',
-    '/images/work2.jpg',
-    '/images/work3.jpg',
-    '/images/work4.jpg',
-];
+// flatten module objects → arrays
+const services = Object.values(serviceModules).map((mod) => (mod as any).default);
+const gallery  = Object.values(galleryModules).map((mod) => (mod as any).default);
+
 ---
 
 <Layout>
@@ -46,7 +40,7 @@ const gallery = [
     </section>
 
     <!-- GALLERY / PREVIOUS WORK -->
-    <Gallery images={gallery} />
+    <Gallery images={gallery.map((g) => g.photo)} />
 
     <!-- SOCIAL + CTA -->
 	<Social />
