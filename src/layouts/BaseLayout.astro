@@ -14,20 +14,15 @@ const { title = 'Palm Tree Pros' } = Astro.props;
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700&display=swap"
-            rel="stylesheet"
-        />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
 
         <style is:global>
             /* Tailwind injected via Astro */
         </style>
+        <link rel="stylesheet" href="/styles/lightbox.css">
 
         <!-- AOS -->
-        <link
-            rel="stylesheet"
-            href="https://unpkg.com/aos@2.3.4/dist/aos.css"
-        />
+        <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
         <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
         <script is:inline defer>
             /* wait until AOS script has executed */
