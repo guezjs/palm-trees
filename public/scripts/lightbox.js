@@ -1,13 +1,24 @@
 window.openLightbox = (start = 0) => {
-  const urls = [...document.querySelectorAll('[data-gallery-img]')].map((i) => i.src);
-  const dlg = document.getElementById('lightbox');
-  const pic = dlg.querySelector('img');
-  let i = start;
+    const thumbs = [...document.querySelectorAll('[data-gallery-img]')];
+    const urls = thumbs.map((img) => img.src);
 
-  const show = () => (pic.src = urls[i]);
-  dlg.querySelector('[data-next]').onclick = () => { i = (i + 1) % urls.length; show(); };
-  dlg.querySelector('[data-prev]').onclick = () => { i = (i - 1 + urls.length) % urls.length; show(); };
+    const dlg = document.getElementById('lightbox');
+    const pic = dlg.querySelector('img');
+    let idx = start;
 
-  show();                 // set src before opening
-  if (!dlg.open) dlg.showModal();
+    const show = () => {
+        if (pic.src !== urls[idx]) pic.src = urls[idx];
+    };
+
+    dlg.querySelector('[data-next]').onclick = () => {
+        idx = (idx + 1) % urls.length;
+        show();
+    };
+    dlg.querySelector('[data-prev]').onclick = () => {
+        idx = (idx - 1 + urls.length) % urls.length;
+        show();
+    };
+
+    show();
+    dlg.showModal();
 };
