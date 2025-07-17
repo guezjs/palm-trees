@@ -1,27 +1,13 @@
-window.openLightbox = (startIdx = 0) => {
-    const urls = Array.from(
-        document.querySelectorAll('[data-gallery-img]')
-    ).map((img) => img.src);
+window.openLightbox = (start = 0) => {
+  const urls = [...document.querySelectorAll('[data-gallery-img]')].map((i) => i.src);
+  const dlg = document.getElementById('lightbox');
+  const pic = dlg.querySelector('img');
+  let i = start;
 
-    const dlg = document.getElementById('lightbox');
-    const pic = dlg.querySelector('img');
-    let idx = startIdx;
+  const show = () => (pic.src = urls[i]);
+  dlg.querySelector('[data-next]').onclick = () => { i = (i + 1) % urls.length; show(); };
+  dlg.querySelector('[data-prev]').onclick = () => { i = (i - 1 + urls.length) % urls.length; show(); };
 
-    const show = () => (pic.src = urls[idx]);
-
-    // navigation
-    dlg.querySelector('[data-next]').onclick = () => {
-        idx = (idx + 1) % urls.length;
-        show();
-    };
-    dlg.querySelector('[data-prev]').onclick = () => {
-        idx = (idx - 1 + urls.length) % urls.length;
-        show();
-    };
-
-    show(); // set the src FIRST
-    if (!dlg.open) {
-        // only call showModal the first time
-        dlg.showModal();
-    }
+  show();                 // set src before opening
+  if (!dlg.open) dlg.showModal();
 };
