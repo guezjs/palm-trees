@@ -1,7 +1,6 @@
 import { defineConfig } from 'tinacms';
 import schema from './schema.js';
 
-// Your hosting provider likely exposes this as an environment variable
 const branch =
     process.env.GITHUB_BRANCH ||
     process.env.VERCEL_GIT_COMMIT_REF ||
@@ -11,9 +10,7 @@ const branch =
 export default defineConfig({
     branch,
 
-    // Get this from tina.io
     clientId: process.env.TINA_PUBLIC_CLIENT_ID,
-    // Get this from tina.io
     token: process.env.TINA_TOKEN,
 
     build: {
