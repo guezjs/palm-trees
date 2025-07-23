@@ -6,13 +6,20 @@ import Hero from '../components/Hero.astro';
 import Social from '../components/Social.astro';
 
 // auto-import JSON files Tina creates
-const serviceModules = import.meta.glob('../content/services/*.json', { eager: true });
-const galleryModules = import.meta.glob('../content/gallery/*.json', { eager: true });
+const serviceModules = import.meta.glob('../content/services/*.json', {
+    eager: true,
+});
+const galleryModules = import.meta.glob('../content/gallery/*.json', {
+    eager: true,
+});
 
 // flatten module objects → arrays
-const services = Object.values(serviceModules).map((mod) => (mod as any).default);
-const gallery  = Object.values(galleryModules).map((mod) => (mod as any).default);
-
+const services = Object.values(serviceModules).map(
+    (mod) => (mod as any).default
+);
+const gallery = Object.values(galleryModules).map(
+    (mod) => (mod as any).default
+);
 ---
 
 <Layout>
@@ -29,7 +36,7 @@ const gallery  = Object.values(galleryModules).map((mod) => (mod as any).default
     </header> -->
 
     <!-- HERO -->
-	<Hero />
+    <Hero />
 
     <!-- SERVICES -->
     <section class="px-6 py-16" id="services" data-aos="fade-up">
@@ -43,27 +50,15 @@ const gallery  = Object.values(galleryModules).map((mod) => (mod as any).default
     <Gallery images={gallery.map((g) => g.photo)} />
 
     <!-- SOCIAL + CTA -->
-	<Social />
+    <Social />
 
-    <!-- LIGHTBOX DIALOG -->
+    <!-- Single dialog kept at end of page -->
     <dialog id="lightbox" class="p-0 bg-transparent">
         <div class="relative">
-            <button
-                data-prev
-                class="absolute left-4 top-1/2 -translate-y-1/2 text-3xl text-white"
-                >&larr;</button
-            >
+            <button data-prev class="absolute left-4 top-1/2 -translate-y-1/2 text-3xl text-white">&larr;</button>
             <img class="max-w-[90vw] max-h-[90vh] rounded-lg shadow-lg" />
-            <button
-                data-next
-                class="absolute right-4 top-1/2 -translate-y-1/2 text-3xl text-white"
-                >&rarr;</button
-            >
-            <button
-                onclick="this.closest('dialog').close()"
-                class="absolute top-2 right-4 text-2xl text-white"
-                >&times;</button
-            >
+            <button data-next class="absolute right-4 top-1/2 -translate-y-1/2 text-3xl text-white">&rarr;</button>
+            <button onclick="this.closest('dialog').close()" class="absolute top-2 right-4 text-2xl text-white">&times;</button>
         </div>
     </dialog>
 </Layout>

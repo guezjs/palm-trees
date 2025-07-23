@@ -1,24 +1,36 @@
-window.openLightbox = (start = 0) => {
-    const thumbs = [...document.querySelectorAll('[data-gallery-img]')];
-    const urls = thumbs.map((img) => img.src);
+(function () {
+    const dlg   = document.getElementById('lightbox');
+    const imgEl = dlg.querySelector('img');
+    const next  = dlg.querySelector('[data-next]');
+    const prev  = dlg.querySelector('[data-prev]');
 
-    const dlg = document.getElementById('lightbox');
-    const pic = dlg.querySelector('img');
-    let idx = start;
+    const slides = () =>
+        [...document.querySelectorAll('[data-gallery-img]')].map((el) => el.src);
 
-    const show = () => {
-        if (pic.src !== urls[idx]) pic.src = urls[idx];
+    let idx = 0;
+    const show = (i) => {
+        const list = slides();
+        idx = ((i % list.length) + list.length) % list.length;
+        imgEl.src = list[idx];
     };
 
-    dlg.querySelector('[data-next]').onclick = () => {
-        idx = (idx + 1) % urls.length;
-        show();
-    };
-    dlg.querySelector('[data-prev]').onclick = () => {
-        idx = (idx - 1 + urls.length) % urls.length;
-        show();
+    window.openLightbox = (start = 0) => {
+        show(start);
+        if (!dlg.open) dlg.showModal();
     };
 
-    show();
-    dlg.showModal();
-};
+    next.onclick = () => show(idx + 1);
+    prev.onclick = () => show(idx - 1);
+
+    dlg.addEventListener('click', (e) => {
+        if (e.target === dlg) dlg.close();
+    });
+
+    dlg.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') dlg.close();
+    });
+
+    dlg.addEventListener('close', () => {
+        imgEl.removeAttribute('src');
+    });
+})();

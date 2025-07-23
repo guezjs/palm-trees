@@ -16,10 +16,6 @@ const { title = 'Palm Tree Pros' } = Astro.props;
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
 
-        <style is:global>
-            /* Tailwind injected via Astro */
-        </style>
-
         <!-- AOS -->
         <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
         <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
@@ -32,9 +28,12 @@ const { title = 'Palm Tree Pros' } = Astro.props;
             });
         </script>
     </head>
+
     <body class="font-body text-gray-900 scroll-smooth">
         <slot />
+
         <!-- Lightbox -->
-        <script is:inline src="/scripts/lightbox.js" defer></script>
+        <link rel="stylesheet" href="/styles/lightbox.css" />
+        <script is:inline type="module" src="/scripts/lightbox.js" defer></script>
     </body>
 </html>
